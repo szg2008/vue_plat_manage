@@ -1,4 +1,4 @@
-# vue_plat
+# vue_plat_manage
 
 > A Vue.js project
 
@@ -14,11 +14,8 @@ npm run dev
 # build for production with minification
 npm run build
 
-http://cnodejs.org/topic/5934c2f5739a92064a1bd4ee
-
-https://github.com/bailicangdu/vue2-manage/blob/master/src/router/index.js
-
-http://www.jianshu.com/p/d87d7140944e
+# build for production and view the bundle analyzer report
+npm run build --report
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
