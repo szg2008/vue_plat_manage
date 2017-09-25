@@ -4,10 +4,10 @@
         <v-menu></v-menu>
         <div class="content">
             <el-row>
-                <el-col :span="4">
+                <el-col :span="5">
                     <v-slidebar></v-slidebar>
                 </el-col>
-                <el-col :span="20">
+                <el-col :span="19">
                     <transition name="fade" mode="out-in">
                         <router-view></router-view>
                     </transition>

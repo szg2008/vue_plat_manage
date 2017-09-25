@@ -10,7 +10,13 @@ const routes = [
     },
     {
         path:'/home',
-        component:resolve => require(['@/components/common/home'],resolve)
+        component:resolve => require(['@/components/common/Home'],resolve),
+        children:[
+            {
+                path:'/',
+                component:resolve => require(['@/components/page/home/Index'],resolve)
+            }
+        ]
     },
     {
         path:'/login',
