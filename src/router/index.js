@@ -1,18 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/components/login'
-import Home from '@/components/home'
 
 Vue.use(Router)
 
 const routes = [
     {
         path:'/',
-        component:Login
+        redirect:'/page/Login'
     },
     {
         path:'/home',
-        component:Home
+        component:resolve => require(['@/components/common/home'],resolve)
+    },
+    {
+        path:'/login',
+        component:resolve => require(['@/components/page/Login'],resolve)
     }
 ]
 
