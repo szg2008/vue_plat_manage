@@ -2,7 +2,7 @@
     <div class="">
         <el-row :gutter="20">
             <el-col :span="4">
-                <el-button type="text" size="large" class="logo">移动云平台</el-button>
+                <el-button type="text" size="large" class="logo">我的云平台</el-button>
             </el-col>
             <el-col :span="16">
                 &nbsp;
