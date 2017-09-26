@@ -3,7 +3,7 @@
         <v-head></v-head>
         <v-menu></v-menu>
         <div class="content">
-            <el-row>
+            <el-row :gutter="24">
                 <el-col :span="5">
                     <v-slidebar></v-slidebar>
                 </el-col>
@@ -13,7 +13,6 @@
                     </transition>
                 </el-col>
             </el-row>
-
         </div>
     </div>
 </template>

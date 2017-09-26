@@ -2,7 +2,7 @@
     <div class="">
         <el-row :gutter="20">
             <el-col :span="4">
-                <el-button type="text" size="large" class="logo">我的云平台</el-button>
+                <el-button type="text" size="large" class="logo">移动云平台</el-button>
             </el-col>
             <el-col :span="16">
                 &nbsp;
@@ -11,7 +11,7 @@
                 <div class="user_info">
                     <el-dropdown trigger="click" @command="handleCommand">
                         <span>
-                            <img src="../../../static/img/logo.jpg" alt="" class="user_logo">
+                            <img src="../../../static/img/logo.jpg" alt="" class="user_logo" />
                             {{username}}
                         </span>
                         <el-dropdown-menu slot="dropdown">
@@ -28,7 +28,7 @@
 export default {
     data(){
         return {
-            username:'susu'
+            username:'18658754215'
         }
     },
     methods:{

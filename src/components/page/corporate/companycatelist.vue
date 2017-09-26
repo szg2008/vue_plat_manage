@@ -1,6 +1,6 @@
-<template>
+<template lang="html">
     <div class="">
-        Index
+        companycatelist
     </div>
 </template>
 
