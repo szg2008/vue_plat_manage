@@ -51,13 +51,14 @@ export default {
                     this.$alert('保存成功', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
-
                         }
                     });
                 } else {
-                    this.$message({
-                        type: 'error',
-                        message: '请填入正确的信息'
+                    this.$alert('请填写信息', '错误', {
+                        confirmButtonText: '确定',
+                        callback: action => {
+
+                        }
                     });
                     return false;
               }
