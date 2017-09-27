@@ -36,8 +36,16 @@
                                 </el-option>
                             </el-select>
                             <el-button type="primary" @click="handleAddChannel">添加</el-button>
-                            <el-tag :key="tag.name" v-for="tag in tags" :closeable="true" :type="tag.id">
-                                {{tag}}
+                            <br>
+                            <el-tag
+                            class="tab_item"
+                            :key="tag.value"
+                            v-for="tag in tags"
+                            :closable="true"
+                            :type="tag.id"
+                            @close="handleClose(tag)"
+                            >
+                                {{tag.value}}
                             </el-tag>
                         </div>
                     </el-form-item>
@@ -100,7 +108,16 @@ export default {
                     id:'7a83837c51ab5129c78958353acb24a9'
                 }
             ],
-            tags:[]
+            tags:[
+                {
+                    value:'鲜花',
+                    id:'1f4758df171a9d8fc31b583f81917a2f'
+                },
+                {
+                    value:'淘宝',
+                    id:'7d78c30582f63ab0b7ca583f7fc7b9c0'
+                }
+            ]
         }
     },
     methods:{
@@ -120,6 +137,9 @@ export default {
         },
         handleCancel(){
             this.$router.push('news')
+        },
+        handleClose(tag){
+            this.tags.splice(this.tags.indexOf(tag), 1);
         }
     }
 }
@@ -128,4 +148,5 @@ export default {
 <style lang="scss">
     .form_item{display: inline-block;width:400px;}
     .editor{height: 400px;}
+    .tab_item{margin-right:10px;}
 </style>
