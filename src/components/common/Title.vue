@@ -13,7 +13,7 @@ export default {
 
 <style lang="scss">
     .title{
-        height: 80px;
+        height: 50px;
     }
     hr{
         margin-top: 6px;
