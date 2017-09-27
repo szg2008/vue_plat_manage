@@ -48,17 +48,18 @@ export default {
         submitForm(formName){
             this.$refs[formName].validate((valid) => {
                 if (valid) {
-                    this.$alert('保存成功', '标题名称', {
+                    this.$alert('保存成功', '提示', {
                         confirmButtonText: '确定',
                         callback: action => {
-                            this.$message({
-                              type: 'success',
-                              message: '保存成功'
-                            });
                         }
                     });
                 } else {
+                    this.$alert('请填写信息', '错误', {
+                        confirmButtonText: '确定',
+                        callback: action => {
 
+                        }
+                    });
                     return false;
               }
             });

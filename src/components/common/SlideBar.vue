@@ -72,6 +72,7 @@ export default {
                 case '/content':
                 case '/content/link':
                 case '/content/news':
+                case '/content/editnews':
                 case '/content/majornews':
                 case '/content/interest':
                 case '/content/chart':
