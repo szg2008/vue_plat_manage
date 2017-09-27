@@ -60,6 +60,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import vTitle from '../../common/Title'
 import {quillEditor} from 'vue-quill-editor'
 export default {
@@ -122,9 +123,26 @@ export default {
     },
     methods:{
         onEditorReady(editor){
-            console.log(this.$refs.myQuillEditor.quill)
+            // console.log(this.$refs.myQuillEditor.quill)
         },
         handleAddChannel(){
+            let channelvalue = this.channelvalue
+            let arritem,subitem
+            if(!!channelvalue) {
+                arritem = this.channeloptions.find((item,index,arr) => {
+                    return item.value === channelvalue
+                })
+            }
+            //数组的变化更新视图，使用set
+            if(!!arritem){
+                subitem = this.tags.filter((item,index) => {
+                    return item.id === arritem.id
+                })
+                if(!subitem.length){
+                    Vue.set(this.tags,this.tags.length,arritem)
+                    this.channelvalue = ''
+                }
+            }
 
         },
         handleSave(){
