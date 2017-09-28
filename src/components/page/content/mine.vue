@@ -1,4 +1,4 @@
-<template lang="html">
+<template>
     <div class="">
         <v-title title="我的"></v-title>
         <div class="table_item">
@@ -11,26 +11,27 @@
         </div>
         <div class="table_item">
             <el-row>
-                <el-table :data='tableData' border>
-                    <el-table-column prop="title" label="名称" width="80" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column label="图标" width="80" align="center" class-name="table_column">
-                        <template scope="scope">
-                            <img :src=scope.row.icon alt="" width=40 height=40/>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="source" label="来源" width="120" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column prop="status" label="状态" width="100" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column prop="updatetime" label="更新时间" width="150" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column prop="person" label="操作人" width="100" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column label="操作" width="200" align="center" class-name="table_column">
-                        <template scope="scope">
-                            <el-button type="text" @click="handleUp">上移</el-button>
-                            <el-button type="text" @click="handleDown">下移</el-button>
-                            <el-button type="text" @click="handleEdit">编辑</el-button>
-                            <el-button type="text" @click="handleDel">删除</el-button>
-                        </template>
-                    </el-table-column>
-                </el-table>
+                <el-col :span="24">
+                    <el-table :data='tableData' border>
+                        <el-table-column prop="title" label="名称" width="80" align="center" class-name="table_column"></el-table-column>
+                        <!-- <el-table-column label="图标" width="80" align="center" class-name="table_column" prop="icon">
+                            <template scope="scope">
+                                <img :src=scope.row.icon alt="" width=40 height=40/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="status" label="状态" width="100" align="center" class-name="table_column"></el-table-column>
+                        <el-table-column prop="updatetime" label="更新时间" width="150" align="center" class-name="table_column"></el-table-column>
+                        <el-table-column prop="person" label="操作人" width="100" align="center" class-name="table_column"></el-table-column> -->
+                        <el-table-column label="操作" width="200" align="center" class-name="table_column">
+                            <template scope="scope">
+                                <el-button type="text" @click="handleUp">上移</el-button>
+                                <el-button type="text" @click="handleDown">下移</el-button>
+                                <el-button type="text" @click="handleEdit">编辑</el-button>
+                                <el-button type="text" @click="handleDel">删除</el-button>
+                            </template>
+                        </el-table-column>  
+                    </el-table>
+                </el-col>
             </el-row>
         </div>
     </div>
