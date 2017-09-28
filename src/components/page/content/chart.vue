@@ -35,7 +35,7 @@
                     </el-form-item>
                     <el-form-item label="欢迎语：">
                         <div class="form_item">
-                            <el-input type="textarea" :rows=5 value="Hi,靓妹儿给你服务啦~~"></el-input>
+                            <el-input type="textarea" :rows=5 value="Hi,靓妹儿为您服务啦~~"></el-input>
                         </div>
                     </el-form-item>
                     <el-form-item>
