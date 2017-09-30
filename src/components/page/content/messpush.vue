@@ -3,8 +3,7 @@
         <v-title title="信息推送"></v-title>
         <div class="table_item">
             <el-row>
-                <el-col :span="3">&nbsp;</el-col>
-                <el-col :span="21">
+                <el-col :span="24">
                     <div class="form_item">
                         <span>标题：</span>
                         <el-input v-model="title" placeholder='请输入标题'></el-input>
@@ -25,19 +24,19 @@
                             <el-option value="绑定">绑定</el-option>
                         </el-select>
                     </div>
-                </el-col>
-            </el-row>
-            <el-row>
-                <el-col :span="14">&nbsp;</el-col>
-                <el-col :span="10">
                     <div class="form_item">
-                        <span>推送状态：</span>
+                        <span>状态：</span>
                         <el-select v-model="status">
                             <el-option value="全部">全部</el-option>
                             <el-option value="成功">成功</el-option>
                             <el-option value="失败">失败</el-option>
                         </el-select>
                     </div>
+                </el-col>
+            </el-row>
+            <el-row>
+                <el-col :span="21">&nbsp;</el-col>
+                <el-col :span="3">
                     <el-button type="primary" @click="dialogPushNewContent=true">推送新内容</el-button>
                 </el-col>
             </el-row>
@@ -248,6 +247,6 @@ export default {
     .table_item .el-col{margin-bottom: 10px;}
     .form_item{display:inline-block;}
     .form_item .el-input{width:120px;margin-right: 10px;}
-    .form_item .date-picker{width:260px;}
+    .form_item .date-picker{width:240px;}
     .table_column{padding:10px 0;}
 </style>
