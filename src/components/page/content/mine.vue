@@ -5,7 +5,7 @@
             <el-row>
                 <el-col :span="22">&nbsp;</el-col>
                 <el-col :span="2">
-                    <el-button type="primary">添加</el-button>
+                    <el-button type="primary" @click="handleEdit">添加</el-button>
                 </el-col>
             </el-row>
         </div>
@@ -28,8 +28,8 @@
                         <el-table-column prop="person" label="操作人" width="100" align="center" class-name="table_column"></el-table-column>
                         <el-table-column label="操作" width="" align="center" class-name="table_column">
                             <template scope="scope">
-                                <el-button type="text" @click="handleUp">上移</el-button>
-                                <el-button type="text" @click="handleDown">下移</el-button>
+                                <el-button type="text" @click="handleUp" :disabled="false">上移</el-button>
+                                <el-button type="text" @click="handleDown" :disabled="false">下移</el-button>
                                 <el-button type="text" @click="handleEdit">编辑</el-button>
                                 <el-button type="text" @click="handleDel">删除</el-button>
                             </template>
@@ -38,6 +38,37 @@
                 </el-col>
             </el-row>
         </div>
+        <el-dialog title="编辑/添加" :visible.sync="dialogEditNews">
+            <el-row>
+                <el-col :span="2">&nbsp;</el-col>
+                <el-col :span="16">
+                    <el-form :model="editForm" label-width="100px">
+                        <el-form-item label="名称：" prop="newsname">
+                            <div class="form_item">
+                                <el-input v-model="editForm.newsname" placeholder='请输入名称'></el-input>
+                            </div>
+                        </el-form-item>
+                        <el-form-item label="类型：" prop="newstype">
+                            <el-select v-model="editForm.newstype">
+                                <el-option value="个人信息">个人信息</el-option>
+                                <el-option value="我的首页">我的首页</el-option>
+                                <el-option value="安全中心">安全中心</el-option>
+                                <el-option value="阅读">阅读</el-option>
+                                <el-option value="设置">设置</el-option>
+                                <el-option value="推荐给好友">推荐给好友</el-option>
+                                <el-option value="钱包">钱包</el-option>
+                                <el-option value="活动签到">活动签到</el-option>
+                            </el-select>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button type="primary" @click="handleSave">立即保存</el-button>
+                            <el-button @click="handleCancel">取消</el-button>
+                        </el-form-item>
+                    </el-form>
+                </el-col>
+                <el-col :span="6">&nbsp;</el-col>
+            </el-row>
+        </el-dialog>
     </div>
 </template>
 
@@ -85,18 +116,23 @@ export default {
                     updatetime:'2017-02-14',
                     person:'susu'
                 }
-            ]
+            ],
+            dialogEditNews:false,
+            editForm:{
+                newsname:'',
+                newstype:'个人信息'
+            }
         }
     },
     methods:{
         handleUp(){
-            
+
         },
         handleDown(){
 
         },
         handleEdit(){
-
+            this.dialogEditNews = true
         },
         handleDel(){
             this.$confirm('是否删除这条数据？','提示',{
@@ -111,6 +147,12 @@ export default {
             }).catch(() => {
                 //取消
             })
+        },
+        handleSave(){
+            this.dialogEditNews = false
+        },
+        handleCancel(){
+            this.dialogEditNews = false
         }
     }
 }

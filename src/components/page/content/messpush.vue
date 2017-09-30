@@ -28,18 +28,17 @@
                 </el-col>
             </el-row>
             <el-row>
-                <el-col :span="12">&nbsp;</el-col>
-                <el-col :span="12">
+                <el-col :span="14">&nbsp;</el-col>
+                <el-col :span="10">
                     <div class="form_item">
-                        <span>推送类型：</span>
+                        <span>推送状态：</span>
                         <el-select v-model="status">
                             <el-option value="全部">全部</el-option>
                             <el-option value="成功">成功</el-option>
                             <el-option value="失败">失败</el-option>
                         </el-select>
                     </div>
-                    <el-button type="primary">添加</el-button>
-                    <el-button type="primary">推送新内容</el-button>
+                    <el-button type="primary" @click="dialogPushNewContent=true">推送新内容</el-button>
                 </el-col>
             </el-row>
         </div>
@@ -77,6 +76,52 @@
                 </el-col>
             </el-row>
         </div>
+        <el-dialog title="推送" :visible.aync="dialogPushNewContent">
+            <el-row>
+                <el-col :span="1">&nbsp;</el-col>
+                <el-col :span="22">
+                    <span>已绑定栏目：</span>
+                    <el-radio-group v-model="bindColumn">
+                        <el-radio :label="0">里约直击</el-radio>
+                        <el-radio :label="1">新闻动态</el-radio>
+                        <el-radio :label="2">相关图片</el-radio>
+                        <el-radio :label="3">熊猫</el-radio>
+                        <el-radio :label="4">北京吃喝</el-radio>
+                        <el-radio :label="5">羊蝎子</el-radio>
+                    </el-radio-group>
+                </el-col>
+                <el-col :span="1">&nbsp;</el-col>
+            </el-row>
+            <br>
+            <el-row>
+                <el-col :span="1">&nbsp;</el-col>
+                <el-col :span="22">
+                    <el-table :data='pushData' border>
+                        <el-table-column prop="title" label="标题" width="" align="center" class-name="table_column"></el-table-column>
+                        <el-table-column prop="publishdate" label="发布时间" width="200" align="center" class-name="table_column"></el-table-column>
+                        <el-table-column label="操作" width="150" align="center" class-name="table_column">
+                            <template scope="scope">
+                                <el-button type="text" @click="handlePush">推送</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </el-col>
+                <el-col :span="1">&nbsp;</el-col>
+            </el-row>
+            <br>
+            <el-row>
+                <el-col :span="3">&nbsp;</el-col>
+                <el-col :span="18">
+                    <el-pagination
+                    small
+                    layout="prev, pager, next"
+                    :total="120">
+                    </el-pagination>
+
+                </el-col>
+                <el-col :span="3"><el-button @click="dialogPushNewContent=false">关闭</el-button></el-col>
+            </el-row>
+        </el-dialog>
     </div>
 </template>
 
@@ -142,15 +187,57 @@ export default {
                 }
             ],
             currentpage:6,
-            total:67
+            total:67,
+            dialogPushNewContent:false,
+            bindColumn:2,
+            pushData:[
+                {
+                    title:'外滩屋顶花园设计施工，酒店鲜花绿植租赁价格',
+                    publishdate:'2017-02-12'
+                },
+                {
+                    title:'鲜花盛放 希望重塑',
+                    publishdate:'2017-02-12'
+                },
+                {
+                    title:'成都最具影响力的生活',
+                    publishdate:'2017-02-12'
+                },
+                {
+                    title:'鲜花电商谁会成为消费升级的最大黑马',
+                    publishdate:'2017-02-12'
+                },
+                {
+                    title:'成都宝贝家族儿童摄影',
+                    publishdate:'2017-02-12'
+                },
+                {
+                    title:'社区_成都吃喝玩乐',
+                    publishdate:'2017-02-12'
+                }
+            ]
         }
     },
     methods:{
         handleDel(){
-
+            this.$confirm('是否删除这条数据？','提示',{
+                confirmButtonText:'删除',
+                cancelButtonText:'取消',
+                type:'warning'
+            }).then(() => {
+                this.$message({
+                    type:'success',
+                    message:'删除成功'
+                })
+            }).catch(() => {
+                //取消
+            })
         },
         handleCurrentChange(){
 
+        },
+        handlePush(){
+            this.dialogPushNewContent = false
         }
     }
 }
