@@ -110,7 +110,7 @@ export default {
                 case '/advance/settab':
                     treeList = {
                         '/advance/access':'权限设置',
-                        '/advance/members':'会员设置',
+                        '/advance/members':'会员管理',
                         'appmanage':{
                             name:'上架设置',
                             obj:{
