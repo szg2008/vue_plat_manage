@@ -135,6 +135,7 @@ export default {
                 case '/service':
                 case '/service/channelindex':
                 case '/service/channelnews':
+                case '/service/editchannel':
                     treeList = {
                         'channel':{
                             name:'资讯管理',

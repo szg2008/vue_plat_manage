@@ -117,6 +117,10 @@ const routes = [
             {
                 path:'channelnews',
                 component:resolve => require(['@/components/page/service/channelnews'],resolve)
+            },
+            {
+                path:'editchannel',
+                compoent:resolve => require(['@/components/page/service/editchannel'],resolve)
             }
         ]
     },
