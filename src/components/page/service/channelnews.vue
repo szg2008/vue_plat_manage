@@ -3,8 +3,7 @@
         <v-title title="资讯管理"></v-title>
         <div class="table_item">
             <el-row>
-                <el-col :span="2">&nbsp;</el-col>
-                <el-col :span="22">
+                <el-col :span="24">
                     <span>频道：</span>
                     <el-select v-model="channel">
                         <el-option value="全部">全部</el-option>
@@ -104,7 +103,7 @@ export default {
             this.$router.push('/content/editnews');
         },
         handleDel(){
-            
+
         }
     }
 }

@@ -120,7 +120,7 @@ const routes = [
             },
             {
                 path:'editchannel',
-                compoent:resolve => require(['@/components/page/service/editchannel'],resolve)
+                component:resolve => require(['@/components/page/service/editchannel'],resolve)
             }
         ]
     },
