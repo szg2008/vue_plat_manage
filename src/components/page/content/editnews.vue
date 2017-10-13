@@ -7,17 +7,17 @@
                 <el-form :model="editForm" :rules="editRules" label-width="100px">
                     <el-form-item label="标题：" :label-width="formLabelWidth" prop="title">
                         <div class="form_item">
-                            <el-input v-model="editForm.title" placeholder='请输入标题'></el-input>
+                            <el-input v-model="editForm.title" placeholder='请输入标题' @change="handleChangeTitle"></el-input>
                         </div>
                     </el-form-item>
                     <el-form-item label="来源：" :label-width="formLabelWidth" prop="source">
                         <div class="form_item">
-                            <el-input v-model="editForm.source"></el-input>
+                            <el-input v-model="editForm.source" placeholder="请输入来源" @change="handleChangeSource"></el-input>
                         </div>
                     </el-form-item>
-                    <el-form-item label="正文：" :label-width="formLabelWidth" style="height:500px">
+                    <el-form-item label="正文：" :label-width="formLabelWidth" style="height:500px" prop="content">
                         <quill-editor
-                        v-model="content"
+                        v-model="editForm.content"
                         ref="myQuillEditor"
                         class="editor"
                         :options="editorOption"
@@ -27,7 +27,7 @@
                     </el-form-item>
                     <el-form-item label="发布在频道：" :label-width="formLabelWidth" prop="channel">
                         <div class="form_item">
-                            <el-select v-model="channelvalue" clearable placeholder="请选择">
+                            <el-select v-model="editForm.channel" clearable placeholder="请选择">
                                 <el-option
                                   v-for="item in channeloptions"
                                   :key="item.id"
@@ -63,30 +63,43 @@
 import Vue from 'vue'
 import vTitle from '../../common/Title'
 import {quillEditor} from 'vue-quill-editor'
+import {addNewsData,getNewsDataById} from '../../../api/api'
 export default {
     components:{
         vTitle,
         quillEditor
+    },
+    created(){
+        let id = this.$route.params.id
+        if(id){
+            getNewsDataById({
+                id:id
+            }).then(res => {
+                this.editForm.title = res.data.data[0].title
+                this.editForm.source = res.data.data[0].source
+            })
+        }
     },
     data(){
         return {
             editForm:{
                 title:'',
                 source:'',
+                content:'',
                 channel:''
             },
             editRules:{
                 title:[
                     {required:true,message:'请输入标题',trigger:'blur'},
                     {min:0,max:64,message:'标题长度在64个字符以内',trigger:'blur'}
+                ],
+                source:[
+                    {required:true,message:'请输入来源',trigger:'blur'},
+                    {min:1,max:10,message:'来源长度在10个字符以内',trigger:'blur'}
                 ]
             },
             formLabelWidth:'100px',
-            content:'',
-            editorOption:{
-
-            },
-            channelvalue:'',
+            editorOption:{},
             channeloptions:[
                 {
                     value:'鲜花',
@@ -109,28 +122,24 @@ export default {
                     id:'7a83837c51ab5129c78958353acb24a9'
                 }
             ],
-            tags:[
-                {
-                    value:'鲜花',
-                    id:'1f4758df171a9d8fc31b583f81917a2f'
-                },
-                {
-                    value:'淘宝',
-                    id:'7d78c30582f63ab0b7ca583f7fc7b9c0'
-                }
-            ]
+            tags:[]
         }
     },
     methods:{
         onEditorReady(editor){
-            // console.log(this.$refs.myQuillEditor.quill)
+        },
+        handleChangeTitle(value){
+            this.editForm.title = value
+        },
+        handleChangeSource(value){
+            this.editForm.source = value
         },
         handleAddChannel(){
-            let channelvalue = this.channelvalue
+            let channel = this.editForm.channel
             let arritem,subitem
-            if(!!channelvalue) {
+            if(!!channel) {
                 arritem = this.channeloptions.find((item,index,arr) => {
-                    return item.value === channelvalue
+                    return item.value === channel
                 })
             }
             //数组的变化更新视图，使用set
@@ -140,21 +149,28 @@ export default {
                 })
                 if(!subitem.length){
                     Vue.set(this.tags,this.tags.length,arritem)
-                    this.channelvalue = ''
+                    this.editForm.channel = ''
                 }
             }
-
         },
         handleSave(){
-            this.$alert('保存成功','提示',{
-                confirmButtonText:'确定',
-                callback:action => {
-                    this.$router.push('news')
-                }
+            //区分编辑和添加，通过id的值是否为空
+            addNewsData({
+                id:this.$route.params.id,
+                title:this.editForm.title,
+                source:this.editForm.source,
+                channel:this.tags
+            }).then(res => {
+                this.$alert(res.data.msg,'提示',{
+                    confirmButtonText:'确定',
+                    callback:action => {
+                        this.$router.push('/content/news')
+                    }
+                })
             })
         },
         handleCancel(){
-            this.$router.push('news')
+            this.$router.push('/content/news')
         },
         handleClose(tag){
             this.tags.splice(this.tags.indexOf(tag), 1);

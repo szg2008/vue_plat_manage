@@ -6,22 +6,22 @@
                 <el-col :span="6">&nbsp;</el-col>
                 <el-col :span="18">
                     <span>发布状态：</span>
-                    <el-select v-model="status">
+                    <el-select v-model="status" @change="handleSelectStatus">
                         <el-option value="全部">全部</el-option>
                         <el-option value="未发布">未发布</el-option>
                         <el-option value="已发布">已发布</el-option>
                     </el-select>
                     <div class="" style="display:inline-block">
-                        <el-input v-model="title" placeholder='请输入标题'></el-input>
+                        <el-input v-model="title" placeholder='请输入标题' @change="handleChange"></el-input>
                     </div>
-                    <el-button type="primary">搜索</el-button>
+                    <el-button type="primary" @click="handleSearch">搜索</el-button>
                     <el-button type="primary" @click="handleAdd">添加</el-button>
                 </el-col>
             </el-row>
         </div>
         <div class="table_item">
             <el-row>
-                <el-table :data='tableData' border>
+                <el-table :data='tableData' border v-loading="listLoading" @selection-change="selectAll">
                     <el-table-column type="selection" width="55" align="center" class-name="table_column"></el-table-column>
                     <el-table-column prop="title" label="标题" width="" align="center" class-name="table_column"></el-table-column>
                     <el-table-column prop="publishdate" label="发布时间" width="200" align="center" class-name="table_column"></el-table-column>
@@ -29,9 +29,9 @@
                     <el-table-column prop="status" label="状态" width="100" align="center" class-name="table_column"></el-table-column>
                     <el-table-column label="操作" width="150" align="center" class-name="table_column">
                         <template scope="scope">
-                            <el-button type="text" @click="handleEdit">编辑</el-button>
-                            <el-button type="text" @click="handleDel">删除</el-button>
-                            <el-button type="text" @click="handlePush">推送</el-button>
+                            <el-button type="text" @click="handleEdit(scope.row.id)">编辑</el-button>
+                            <el-button type="text" @click="handleDel(scope.row.id)">删除</el-button>
+                            <el-button type="text" @click="dialogPushFormVisible = true">推送</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -40,7 +40,7 @@
         <div class="table_item">
             <el-row>
                 <el-col :span="7">
-                    <el-button type="primary">批量删除</el-button>
+                    <el-button type="primary" @click="batchRemove">批量删除</el-button>
                 </el-col>
                 <el-col :span="17">
                     <el-pagination
@@ -89,7 +89,7 @@
                             </div>
                         </el-form-item>
                         <el-form-item :label-width="formLabelWidth">
-                            <el-button type="primary" @click="dialogPushFormVisible = false">立即推送</el-button>
+                            <el-button type="primary" @click="handlePush">立即推送</el-button>
                             <el-button @click="dialogPushFormVisible = false">取消</el-button>
                         </el-form-item>
                     </el-form>
@@ -102,75 +102,17 @@
 
 <script>
 import vTitle from '../../common/Title'
+import {getNewsList,delNewsData} from '../../../api/api'
 export default {
     data(){
         return {
             status:'全部',
             title:'',
-            tableData:[
-                {
-                    title:'外滩屋顶花园设计施工，酒店鲜花绿植租赁价格',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'扬子晚报',
-                    status:'已发布'
-                },
-                {
-                    title:'昌平区正规鲜花包装盒制作厂家,省钱又省心',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'搜狐',
-                    status:'未发布'
-                },
-                {
-                    title:'北极,其实是片鲜花盛开的海洋 | 和博物学家段煦一起游  ',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'人民日报',
-                    status:'未发布'
-                },
-                {
-                    title:' 鲜花“美容”迎新年',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'新浪',
-                    status:'未发布'
-                },
-                {
-                    title:'男学生求婚美女老师 老师狠砸钻戒践踏鲜花 怒斥不要脸',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'网易',
-                    status:'未发布'
-                },
-                {
-                    title:'摄影图片 美丽的鲜花开在长城上',
-                    publishdate:'2017-06-01 06:56:00',
-                    source:'腾讯',
-                    status:'未发布'
-                },
-                {
-                    title:'男生钻戒鲜花求婚女老师 美女教师怒斥不要脸砸钻戒',
-                    publishdate:'2016-12-01 06:56:00',
-                    source:'华龙网',
-                    status:'未发布'
-                },
-                {
-                    title:'昆明市官渡区绿化管理中心2016年12月-2018年12月城市道路鲜花种植及摆放采购项目招标公告',
-                    publishdate:'2017-10-12 06:56:00',
-                    source:'城视网',
-                    status:'未发布'
-                },
-                {
-                    title:'女星高圆圆投资鲜花品牌,“花店时间”瞬间人气爆棚',
-                    publishdate:'2017-06-01 06:56:00',
-                    source:'凤凰网',
-                    status:'未发布'
-                },
-                {
-                    title:'技巧 | 婚礼鲜花搭配技巧',
-                    publishdate:'2016-10-01 06:56:00',
-                    source:'齐鲁网',
-                    status:'未发布'
-                }
-            ],
-            currentpage:2,
-            total:600,
+            tableData:[],
+            listLoading:false,
+            currentpage:1,
+            total:0,
+            selections:[],
             dialogPushFormVisible:false,
             pushForm:{
                 pushtitle:'',
@@ -194,31 +136,101 @@ export default {
     components:{
         vTitle
     },
+    created(){
+        this.showNewList()
+    },
     methods:{
+        showNewList(){
+            this.listLoading = true
+            getNewsList({
+                page:this.currentpage,
+                status:this.status,
+                title:this.title
+            }).then((res)=>{
+                this.tableData = res.data.newslist
+                this.total = res.data.total
+                this.listLoading = false
+            })
+        },
+        handleSelectStatus(value){
+            this.currentpage = 1
+            this.status = value
+            this.showNewList()
+        },
+        handleChange(value){
+            this.title = value
+        },
+        handleSearch(){
+            this.currentpage = 1
+            this.showNewList()
+        },
+        selectAll(selection){
+            this.selections = selection
+        },
+        batchRemove(){
+            let ids = this.selections.map((item,index) => item.id)
+            this.$confirm('是否删除选中数据？','提示',{
+                confirmButtonText:'删除',
+                cancelButtonText:'取消',
+                type:'warning'
+            }).then(() => {
+                this.listLoading = true
+                delNewsData({
+                    id:ids
+                }).then(res => {
+                    this.listLoading = false
+                    this.$message({
+                        type:'success',
+                        message:res.data.msg
+                    })
+                    this.currentpage = 1
+                    this.showNewList()
+                })
+
+            }).catch(() => {
+                //取消
+            })
+        },
         handleAdd(){
             this.$router.push('editnews')
         },
-        handleEdit(){
-            this.$router.push('editnews')
+        handleEdit(id){
+            this.$router.push('editnews/'+id)
         },
-        handleDel(){
+        handleDel(id){
             this.$confirm('是否删除这条数据？','提示',{
                 confirmButtonText:'删除',
                 cancelButtonText:'取消',
                 type:'warning'
             }).then(() => {
-                this.$message({
-                    type:'success',
-                    message:'删除成功'
+                this.listLoading = true
+                delNewsData({
+                    id:id
+                }).then(res => {
+                    this.listLoading = false
+                    this.$message({
+                        type:'success',
+                        message:res.data.msg
+                    })
+                    this.currentpage = 1
+                    this.showNewList()
                 })
+
             }).catch(() => {
                 //取消
             })
         },
         handlePush(){
-            this.dialogPushFormVisible = true
+            this.$alert('推送成功','提示',{
+                confirmButtonText:'确定',
+                callback:action => {
+                    this.dialogPushFormVisible = false
+                }
+            })
         },
-        handleCurrentChange(){
+        handleCurrentChange(page){
+            this.currentpage = page
+            this.showNewList()
         },
         beforeAvatarUpload(file){
             const allowType = ['image/jpeg','image/png']

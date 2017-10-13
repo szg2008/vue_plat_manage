@@ -25,7 +25,7 @@ const routes = [
                 component:resolve => require(['@/components/page/content/news'],resolve)
             },
             {
-                path:'editnews',
+                path:'editnews/:id*',
                 component:resolve => require(['@/components/page/content/editnews'],resolve)
             },
             {

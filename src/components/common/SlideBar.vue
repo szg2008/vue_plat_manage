@@ -68,97 +68,70 @@ export default {
         handleTreeData(path){
             let router = path ? path : this.$router.history.current.path
             let treeList = {}
-            switch(router){
-                case '/content':
-                case '/content/link':
-                case '/content/news':
-                case '/content/editnews':
-                case '/content/majornews':
-                case '/content/interest':
-                case '/content/chart':
-                case '/content/mine':
-                case '/content/messpush':
-                    treeList = {
-                        'index':{
-                            name:'首页管理',
-                            obj:{
-                                '/content/link':'外链',
-                                'mixin':{
-                                    name:'混合模块',
-                                    obj:{
-                                        '/content/news':'资讯',
-                                        'qq':{
-                                            name:'球聚合',
-                                            obj:{
-                                                '/content/majornews':'要闻',
-                                                '/content/interest':'圈子'
-                                            }
+            if(router.includes('/content')){
+                treeList = {
+                    'index':{
+                        name:'首页管理',
+                        obj:{
+                            '/content/link':'外链',
+                            'mixin':{
+                                name:'混合模块',
+                                obj:{
+                                    '/content/news':'资讯',
+                                    'qq':{
+                                        name:'球聚合',
+                                        obj:{
+                                            '/content/majornews':'要闻',
+                                            '/content/interest':'圈子'
                                         }
                                     }
                                 }
                             }
-                        },
-                        '/content/chart':'聊天',
-                        '/content/mine':'我的',
-                        '/content/messpush':'信息推送'
-                    }
-                    break;
-                case '/advance':
-                case '/advance/access':
-                case '/advance/members':
-                case '/advance/setground':
-                case '/advance/settab':
-                    treeList = {
-                        '/advance/access':'权限设置',
-                        '/advance/members':'会员管理',
-                        'appmanage':{
-                            name:'上架设置',
-                            obj:{
-                                '/advance/setground':'上架设置',
-                                '/advance/settab':'菜单状态设置'
-                            }
+                        }
+                    },
+                    '/content/chart':'聊天',
+                    '/content/mine':'我的',
+                    '/content/messpush':'信息推送'
+                }
+            }else if(router.includes('/advance')){
+                treeList = {
+                    '/advance/access':'权限设置',
+                    '/advance/members':'会员管理',
+                    'appmanage':{
+                        name:'上架设置',
+                        obj:{
+                            '/advance/setground':'上架设置',
+                            '/advance/settab':'菜单状态设置'
                         }
                     }
-                    break;
-                case '/packset':
-                case '/packset/index':
-                case '/packset/shareset':
-                case '/packset/shareload':
-                case '/packset/upgrade':
-                    treeList = {
-                        '/packset/index':'基础设置',
-                        '/packset/shareset':'第三方设置',
-                        '/packset/shareload':'分享落地页设置',
-                        '/packset/upgrade':'升级设置'
-                    }
-                    break;
-                case '/service':
-                case '/service/channelindex':
-                case '/service/channelnews':
-                case '/service/editchannel':
-                    treeList = {
-                        'channel':{
-                            name:'资讯管理',
-                            obj:{
-                                '/service/channelindex':'频道管理',
-                                '/service/channelnews':'资讯管理'
-                            }
+                }
+            }else if(router.includes('/packset')){
+                treeList = {
+                    '/packset/index':'基础设置',
+                    '/packset/shareset':'第三方设置',
+                    '/packset/shareload':'分享落地页设置',
+                    '/packset/upgrade':'升级设置'
+                }
+            }else if(router.includes('/service')){
+                treeList = {
+                    'channel':{
+                        name:'资讯管理',
+                        obj:{
+                            '/service/channelindex':'频道管理',
+                            '/service/channelnews':'资讯管理'
                         }
                     }
-                    break;
-                case '/corporate':
-                case '/corporate/companyindex':
-                case '/corporate/companycatelist':
-                    treeList = {
-                        'company':{
-                            name:'企业会员账号管理',
-                            obj:{
-                                '/corporate/companyindex':'企业会员账号管理',
-                                '/corporate/companycatelist':'企业会员分类管理'
-                            }
+                }
+            }else if(router.includes('/corporate')){
+                treeList = {
+                    'company':{
+                        name:'企业会员账号管理',
+                        obj:{
+                            '/corporate/companyindex':'企业会员账号管理',
+                            '/corporate/companycatelist':'企业会员分类管理'
                         }
                     }
-                    break;
+                }
             }
             return treeList
         },
