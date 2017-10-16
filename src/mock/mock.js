@@ -13,6 +13,17 @@ export default {
 
     bootstrap() {
         let mock = new MockAdapter(axios);
+        //获取用户信息
+        mock.onGet('/login/getUserInfo').reply(() => {
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    resolve([200,{
+                        code:1,
+                        userInfo:LoginUsers
+                    }])
+                },500)
+            })
+        })
         //获取资讯列表
         mock.onGet('/content/news').reply(config => {
             let {page,status,title} = config.params

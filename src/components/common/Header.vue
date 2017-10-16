@@ -11,7 +11,7 @@
                 <div class="user_info">
                     <el-dropdown trigger="click" @command="handleCommand">
                         <span>
-                            <img src="../../../static/img/logo.jpg" alt="" class="user_logo" />
+                            <img :src="logo" alt="" class="user_logo" />
                             {{username}}
                         </span>
                         <el-dropdown-menu slot="dropdown">
@@ -25,17 +25,32 @@
 </template>
 
 <script>
+import {getUserInfo} from '../../api/api'
 export default {
     data(){
         return {
-            username:'18658754215'
+            username:'',
+            logo:''
         }
     },
+    created(){
+        this.getUserInfo()
+    },
     methods:{
+        async getUserInfo(){
+            const result = await getUserInfo()
+            this.username = result.data.userInfo.name
+            this.logo = result.data.userInfo.avatar
+        },
         handleCommand(command){
             if(command === 'loginout'){
+                this.$confirm('确认退出吗?', '提示', {
+				}).then(() => {
+					this.$router.push('/login')
+				}).catch(() => {
 
-                this.$router.push('/login');
+				})
+
             }
         }
     }

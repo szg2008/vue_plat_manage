@@ -2,6 +2,12 @@ import axios from 'axios'
 
 let base = ''
 
+/**************用户信息***********************/
+export const getUserInfo = () => {
+    
+    return axios.get(`${base}/login/getUserInfo`)
+}
+
 /**********资讯*************/
 export const getNewsList = (params) => {
 

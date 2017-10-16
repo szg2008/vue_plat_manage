@@ -5,7 +5,7 @@ const LoginUsers = {
     username:'admin',
     password:111111,
     avatar:'http://sns-img.b0.upaiyun.com/dunzd/1710/1215/21/151549596251541507792881.jpg',
-    name:'su sir'
+    name:'幸福的阳光生活'
 }
 
 const count = Math.floor(Math.random()*100)
