@@ -1,24 +1,32 @@
 # vue_plat_manage
 
-> A Vue.js project
+# 说明
 
-## Build Setup
+## demo地址：[https://szg2008.github.io/vue_plat_manage/](https://szg2008.github.io/vue_plat_manage/)
 
-``` bash
-# install dependencies
+## 技术栈： vue2.0 + + vue-router + axios + webpack + es6/7 + scss + elementui
+
+## 项目运行
+
+```
+git clone git@github.com:szg2008/vue_plat_manage.git
+
+cd vue_plat_manage
+
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+npm run dev (访问系统)
 
-# build for production with minification
-npm run build
+访问: http://localhost:8080
 
-# build for production and view the bundle analyzer report
-npm run build --report
-
-https://github.com/bailicangdu/vue2-manage/blob/master/src/router/index.js
-http://cangdu.org/manage/#/addGoods
 ```
+# 功能列表
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+- [x] 登陆
+- [x] 内容管理
+    - [x] 外链
+    - [x] 混合模块
+- [x] 高级设置
+- [x] App打包
+- [x] 运营服务
+- [x] 企业会员
