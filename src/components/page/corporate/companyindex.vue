@@ -17,7 +17,7 @@
                     <el-table-column width="220" label="企业会员账号" prop="account" align="center" class-name="table_column"></el-table-column>
                     <el-table-column width="100" label="官网版式" prop="style" align="center" class-name="table_column"></el-table-column>
                     <el-table-column width="" label="企业分类" prop="category" align="center" class-name="table_column"></el-table-column>
-                    <el-table-column label="操作" width="260" align="center" class-name="table_column">
+                    <el-table-column label="操作" width="200" align="center" class-name="table_column">
                         <template scope="scope">
                             <el-button type="text" @click="addCompanyDialog=true">编辑</el-button>
                             <el-button type="text" @click="handleDel">删除</el-button>

@@ -8,10 +8,9 @@ const LoginUsers = {
     name:'su sir'
 }
 
-const NewsData = []
-
 const count = Math.floor(Math.random()*100)
 
+const NewsData = []
 for(let i = 0;i < count;i++){
     NewsData.push(Mock.mock({
         id:Mock.Random.id(),
@@ -22,4 +21,15 @@ for(let i = 0;i < count;i++){
     }))
 }
 
-export {LoginUsers,NewsData}
+const majorNewsData = []
+for(let i = 0;i < count;i++){
+    majorNewsData.push({
+        id:Mock.Random.id(),
+        title:Mock.Random.ctitle(10,30),
+        thumb:Mock.Random.image('40x40', '#02adea', 'holly'),
+        publishdate:Mock.Random.date()
+    })
+}
+
+
+export {LoginUsers,NewsData,majorNewsData}

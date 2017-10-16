@@ -140,17 +140,16 @@ export default {
         this.showNewList()
     },
     methods:{
-        showNewList(){
+        async showNewList(){
             this.listLoading = true
-            getNewsList({
+            const result = await getNewsList({
                 page:this.currentpage,
                 status:this.status,
                 title:this.title
-            }).then((res)=>{
-                this.tableData = res.data.newslist
-                this.total = res.data.total
-                this.listLoading = false
             })
+            this.tableData = result.data.newslist
+            this.total = result.data.total
+            this.listLoading = false
         },
         handleSelectStatus(value){
             this.currentpage = 1

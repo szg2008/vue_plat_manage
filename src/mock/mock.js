@@ -1,9 +1,10 @@
 import axios from 'axios'
 import Mock from 'mockjs'
 import MockAdapter from 'axios-mock-adapter'
-import {LoginUsers,NewsData} from './data/data'
+import {LoginUsers,NewsData,majorNewsData} from './data/data'
 
 let _NewsData = NewsData
+let _MajorNewsData = majorNewsData
 
 export default {
     /**
@@ -109,6 +110,46 @@ export default {
                 setTimeout(() => {
                     resolve([200,{
                         data:mockNewsDataById
+                    }])
+                },500)
+            })
+        })
+
+        //获取要闻数据
+        mock.onGet('/content/majornews').reply(config => {
+            let {title,page} = config.params
+            let mockMajorNews = _MajorNewsData
+            mockMajorNews = mockMajorNews.filter((item,index) => {
+                return item.title.includes(title)
+            })
+
+            let total = mockMajorNews.length
+
+            mockMajorNews = mockMajorNews.filter((item,index) => {
+                return index < 10 * page && index >= 10 * (page - 1)
+            })
+
+            return new Promise((resolve,reject) => {
+                setTimeout(()=>{
+                    resolve([200, {
+                        total: total,
+                        majornewslist: mockMajorNews
+                    }])
+                },1000)
+            })
+        })
+
+        //删除要闻数据
+        mock.onGet('/content/delmajornews').reply(config => {
+            let {id} = config.params
+            _MajorNewsData = _MajorNewsData.filter((item,index) => {
+                return !id.includes(item.id)
+            })
+            return new Promise((resolve,reject) => {
+                setTimeout(() => {
+                    resolve([200,{
+                        code:0,
+                        msg:'删除成功'
                     }])
                 },500)
             })

@@ -126,6 +126,22 @@ export default {
         }
     },
     methods:{
+        async addNewsData(){
+            const result = await addNewsData({
+                id:this.$route.params.id,
+                title:this.editForm.title,
+                source:this.editForm.source,
+                channel:this.tags
+            })
+
+            this.$alert(result.data.msg,'提示',{
+                confirmButtonText:'确定',
+                callback:action => {
+                    this.$router.push('/content/news')
+                }
+            })
+
+        },
         onEditorReady(editor){
         },
         handleChangeTitle(value){
@@ -155,25 +171,13 @@ export default {
         },
         handleSave(){
             //区分编辑和添加，通过id的值是否为空
-            addNewsData({
-                id:this.$route.params.id,
-                title:this.editForm.title,
-                source:this.editForm.source,
-                channel:this.tags
-            }).then(res => {
-                this.$alert(res.data.msg,'提示',{
-                    confirmButtonText:'确定',
-                    callback:action => {
-                        this.$router.push('/content/news')
-                    }
-                })
-            })
+            this.addNewsData()
         },
         handleCancel(){
             this.$router.push('/content/news')
         },
         handleClose(tag){
-            this.tags.splice(this.tags.indexOf(tag), 1);
+            this.tags.splice(this.tags.indexOf(tag), 1)
         }
     }
 }
