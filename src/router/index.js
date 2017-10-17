@@ -121,6 +121,10 @@ const routes = [
             {
                 path:'editchannel',
                 component:resolve => require(['@/components/page/service/editchannel'],resolve)
+            },
+            {
+                path:'curve',
+                component:resolve => require(['@/components/page/service/curve'],resolve)
             }
         ]
     },

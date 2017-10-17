@@ -120,7 +120,8 @@ export default {
                             '/service/channelindex':'频道管理',
                             '/service/channelnews':'资讯管理'
                         }
-                    }
+                    },
+                    '/service/curve':'分布图'
                 }
             }else if(router.includes('/corporate')){
                 treeList = {
