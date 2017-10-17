@@ -12,6 +12,9 @@
 <script>
 import vTitle from '../../common/Title'
 import echarts from 'echarts'
+// import 'echarts/lib/chart/bar'
+// import 'echarts/lib/component/tooltip'
+// import 'echarts/lib/component/title'
 export default {
     components:{
         vTitle
@@ -25,19 +28,20 @@ export default {
         this.$nextTick(() => {
             let mycharts = echarts.init(document.getElementById('curvecontainer'))
             mycharts.setOption({
-                title: { text: '我的云平台使用分布图' },
-                tooltip: {
-                    name:'http://echarts.baidu.com/tutorial.html#%E5%9C%A8%20webpack%20%E4%B8%AD%E4%BD%BF%E7%94%A8%20ECharts'
-                },
-                xAxis: {
-                    data: ["内容管理","高级设置","App打包","运营服务","企业会员"]
-                },
-                yAxis: {},
-                series: [{
-                    name: '点击率',
-                    type: 'bar',
-                    data: [5, 20, 36, 10, 10]
-                }]
+                series : [
+        {
+            name: '访问来源',
+            type: 'pie',
+            radius: '55%',
+            data:[
+                {value:235, name:'视频广告'},
+                {value:274, name:'联盟广告'},
+                {value:310, name:'邮件营销'},
+                {value:335, name:'直接访问'},
+                {value:400, name:'搜索引擎'}
+            ]
+        }
+    ]
             })
         })
     },
