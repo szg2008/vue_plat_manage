@@ -28,20 +28,42 @@ export default {
         this.$nextTick(() => {
             let mycharts = echarts.init(document.getElementById('curvecontainer'))
             mycharts.setOption({
-                series : [
-        {
-            name: '访问来源',
-            type: 'pie',
-            radius: '55%',
-            data:[
-                {value:235, name:'视频广告'},
-                {value:274, name:'联盟广告'},
-                {value:310, name:'邮件营销'},
-                {value:335, name:'直接访问'},
-                {value:400, name:'搜索引擎'}
+                title : {
+                text: '城市分布图',
+                subtext: '',
+                x:'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                orient: 'vertical',
+                left: 'left',
+                data: ['北京','上海','广州','深圳','杭州']
+            },
+            series : [
+                {
+                    name: '访问来源',
+                    type: 'pie',
+                    radius : '55%',
+                    center: ['50%', '60%'],
+                    data:[
+                        {value:335, name:'北京'},
+                        {value:310, name:'上海'},
+                        {value:234, name:'广州'},
+                        {value:135, name:'深圳'},
+                        {value:1548, name:'杭州'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
             ]
-        }
-    ]
             })
         })
     },
